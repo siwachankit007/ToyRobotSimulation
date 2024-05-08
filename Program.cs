@@ -16,17 +16,23 @@ class Program
         Console.WriteLine("Please enter the file path containing commands OR press enter to continue with manual commands");
         string filePath = Console.ReadLine();
         // Check if the file exists
-        if (System.IO.File.Exists(filePath))
+        if(!string.IsNullOrEmpty(filePath) )
         {
-            string[] commands = System.IO.File.ReadAllLines(filePath);
-            foreach (string command in commands)
+            if (System.IO.File.Exists(filePath))
             {
-                simulator.ExecuteUserCommand(command);
+                string[] commands = System.IO.File.ReadAllLines(filePath);
+                foreach (string command in commands)
+                {
+                    simulator.ExecuteUserCommand(command);
+                }
             }
+            else
+                Console.WriteLine("File not found" + filePath);
+
         }
         else
         {
-            Console.WriteLine("File not found: " + filePath);
+            Console.WriteLine("Please continue with manual commands");
             string? command;
             do
             {
